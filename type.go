@@ -16,6 +16,12 @@ limitations under the License.
 
 package filestype
 
+import (
+	"fmt"
+	"github.com/gabriel-vasile/mimetype"
+	"log"
+)
+
 const (
 	// MyFiles is the files' status. [my_files] replace ace_upload
 	MyFiles = "my_files"
@@ -41,4 +47,24 @@ func IsMultimodal(s string) bool {
 		return true
 	}
 	return false
+}
+
+// OpenAISupportFileAndImageType is the my files use case. [支持图片、视频、音频、文档]
+func OpenAISupportFileAndImageType(filename string, data []byte) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Printf("recover from a panic: %v", r)
+			err = fmt.Errorf("not support this file type")
+		}
+	}()
+
+	mm := mimetype.Detect(data)
+
+	switch mm.String() {
+	case "image/webp", "image/jpeg", "image/gif", "image/png":
+		return
+	default:
+		DetectFileType(filename, data)
+		return
+	}
 }

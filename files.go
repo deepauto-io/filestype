@@ -202,7 +202,7 @@ func DetectFileType(filename string, data []byte) string {
 	//**.ics** | text/calendar | -
 	//**.warc** | application/warc | -
 	//**.vtt** | text/vtt | -
-
+	
 	mm := mimetype.Detect(data)
 	//	"application/vnd.openxmlformats-officedocument.presentationml.presentation",
 	//	"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -234,8 +234,8 @@ func DetectFileType(filename string, data []byte) string {
 		return mmType
 	case "application/json": // 支持
 		return mmType
-	case "text/plain": //	 支持
-		return mmType
+	//case "text/plain": //	 支持
+	//	return mmType
 	case "application/pdf": // 支持
 		return mmType
 	case "text/html": // 支持
@@ -272,6 +272,10 @@ func DetectFileType(filename string, data []byte) string {
 		fileType := determineFileType(filename)
 		if fileType != "" {
 			return fileType
+		} else {
+			if mmType == "text/plain" {
+				return mmType
+			}
 		}
 		panic("unknown file type")
 	}

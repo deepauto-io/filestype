@@ -22,10 +22,10 @@ import (
 	"testing"
 )
 
-func TestDetectImageType(t *testing.T) {
-	data, err := os.ReadFile("/Users/taoshumin_vendor/go/src/github.com/filestype/README.md")
+func TestOpenAISupportFileAndImageType(t *testing.T) {
+	body, err := os.ReadFile("/Users/taoshumin_vendor/go/src/github.com/filestype/README.md")
 	assert.NoError(t, err)
 
-	ty := DetectImageType(data)
-	t.Log(ty)
+	err = OpenAISupportFileAndImageType("README.md", body)
+	t.Log(err)
 }
