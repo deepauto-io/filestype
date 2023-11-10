@@ -1,4 +1,4 @@
-module github.com/filestype
+module github.com/deepauto-io/filestype
 
 go 1.20
 
