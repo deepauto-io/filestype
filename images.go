@@ -41,3 +41,26 @@ func DetectImageType(data []byte) string {
 		panic("unknown image type")
 	}
 }
+
+func GetDetectImageType(data []byte) string {
+	mm := mimetype.Detect(data)
+
+	// todo OpenAI will add many image type in the future
+	// "image/webp",
+	// "image/jpeg",
+	// "image/gif",
+	// "image/png"
+
+	switch mm.String() {
+	case "image/webp":
+		return mm.String()
+	case "image/jpeg":
+		return mm.String()
+	case "image/gif":
+		return mm.String()
+	case "image/png":
+		return mm.String()
+	default:
+		return ""
+	}
+}
