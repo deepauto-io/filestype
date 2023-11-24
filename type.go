@@ -33,6 +33,25 @@ const (
 	Gizmo = "gizmo"
 )
 
+type OpenAIModelType string
+
+const (
+	// GPT3Turbo is the gpt-3.5 turbo status.
+	GPT3Turbo OpenAIModelType = "gpt-3.5-turbo"
+	// GPT4 is the gpt-4 status.
+	GPT4 OpenAIModelType = "gpt-4"
+	// GPT4Browsing is the gpt-4 browsing status.
+	GPT4Browsing OpenAIModelType = "gpt-4-browsing"
+	// GPT4CodeInterpreter is the gpt-4 code interpreter status.
+	GPT4CodeInterpreter OpenAIModelType = "gpt-4-code-interpreter"
+	// GPT4Dalle3 is the gpt-4 dalle status.
+	GPT4Dalle3 OpenAIModelType = "gpt-4-dalle"
+	// GPT4Gizmo is the gpt-4 gizmo status.
+	GPT4Gizmo OpenAIModelType = "gpt-4-gizmo"
+	// GPT4MagicCreate is the gpt-4 magic create status.
+	GPT4MagicCreate OpenAIModelType = "gpt-4-magic-create"
+)
+
 // UploadFileType is use gizmo upload file type.
 type UploadFileType string
 
@@ -65,19 +84,20 @@ func IsMultimodal(s string) bool {
 	return false
 }
 
+// SupportGPT is the support gpt model.
 func SupportGPT(s string) bool {
 	s = strings.ToLower(s)
-	list := []string{
-		"gpt-3.5-turbo",
-		"gpt-4",
-		"gpt-4-code-interpreter",
-		"gpt-4-browsing",
-		"gpt-4-dalle",
-		"gpt-4-gizmo",
-		"gpt-4-magic-create",
+	list := []OpenAIModelType{
+		GPT3Turbo,
+		GPT4,
+		GPT4CodeInterpreter,
+		GPT4Browsing,
+		GPT4Dalle3,
+		GPT4Gizmo,
+		GPT4MagicCreate,
 	}
 	for _, s2 := range list {
-		if s2 == s {
+		if string(s2) == s {
 			return true
 		}
 	}
