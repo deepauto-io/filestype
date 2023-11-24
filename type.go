@@ -19,6 +19,7 @@ package filestype
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/gabriel-vasile/mimetype"
 )
@@ -60,6 +61,25 @@ func UploadUseCase(str string) string {
 func IsMultimodal(s string) bool {
 	if s == Multimodal {
 		return true
+	}
+	return false
+}
+
+func SupportGPT(s string) bool {
+	s = strings.ToLower(s)
+	list := []string{
+		"gpt-3.5-turbo",
+		"gpt-4",
+		"gpt-4-code-interpreter",
+		"gpt-4-browsing",
+		"gpt-4-dalle",
+		"gpt-4-gizmo",
+		"gpt-4-magic-create",
+	}
+	for _, s2 := range list {
+		if s2 == s {
+			return true
+		}
 	}
 	return false
 }
