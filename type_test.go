@@ -29,3 +29,11 @@ func TestOpenAISupportFileAndImageType(t *testing.T) {
 	err = OpenAISupportFileAndImageType("README.md", body)
 	t.Log(err)
 }
+
+func TestGetGizmoUploadFileType(t *testing.T) {
+	body, err := os.ReadFile("/Users/taoshumin_vendor/go/src/github.com/filestype/README.md")
+	assert.NoError(t, err)
+
+	ty := GetGizmoUploadFileType("README.mx", body)
+	t.Log(ty)
+}

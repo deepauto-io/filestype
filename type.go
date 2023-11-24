@@ -18,8 +18,9 @@ package filestype
 
 import (
 	"fmt"
-	"github.com/gabriel-vasile/mimetype"
 	"log"
+
+	"github.com/gabriel-vasile/mimetype"
 )
 
 const (
@@ -27,12 +28,26 @@ const (
 	MyFiles = "my_files"
 	// Multimodal is the multimodal status. [multimodal]
 	Multimodal = "multimodal"
+	// Gizmo is the gizmo status. [gizmo]
+	Gizmo = "gizmo"
+)
+
+// UploadFileType is use gizmo upload file type.
+type UploadFileType string
+
+const (
+	// Image is the image type.
+	Image UploadFileType = "image"
+	// File is the file type.
+	File UploadFileType = "file"
+	// Unknown is the unknown type.
+	Unknown UploadFileType = "unknown"
 )
 
 // UploadUseCase is the upload use case.
 // multimodal is the GPT-4 multimodal.
 func UploadUseCase(str string) string {
-	list := []string{MyFiles, Multimodal}
+	list := []string{MyFiles, Multimodal, Gizmo}
 	for _, s := range list {
 		if s == str {
 			return str
@@ -66,5 +81,20 @@ func OpenAISupportFileAndImageType(filename string, data []byte) (err error) {
 	default:
 		DetectFileType(filename, data)
 		return
+	}
+}
+
+// GetGizmoUploadFileType is the gizmo upload file type.
+func GetGizmoUploadFileType(filename string, data []byte) UploadFileType {
+	mm := mimetype.Detect(data)
+	switch mm.String() {
+	case "image/webp", "image/jpeg", "image/gif", "image/png":
+		return Image
+	default:
+		ft := GizmoDetectFileType(filename, data)
+		if ft == "" {
+			return Unknown
+		}
+		return File
 	}
 }

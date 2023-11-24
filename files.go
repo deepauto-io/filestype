@@ -17,11 +17,22 @@ limitations under the License.
 package filestype
 
 import (
+	"log"
 	"path/filepath"
 	"strings"
 
 	"github.com/gabriel-vasile/mimetype"
 )
+
+func GizmoDetectFileType(filename string, data []byte) (filetype string) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Printf("recover from a panic: %v", r)
+			filetype = ""
+		}
+	}()
+	return DetectFileType(filename, data)
+}
 
 // DetectFileType detects the file type by file name.[https://github.com/gabriel-vasile/mimetype/blob/master/supported_mimes.md]
 func DetectFileType(filename string, data []byte) string {
