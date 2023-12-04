@@ -243,6 +243,8 @@ func DetectFileType(filename string, data []byte) string {
 		return mmType
 	case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": //  支持
 		return mmType
+	case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+		return mmType
 	case "application/json": // 支持
 		return mmType
 	//case "text/plain": //	 支持
