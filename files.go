@@ -310,6 +310,8 @@ func extractMimeType(rawMimeType string) string {
 // determineFileType determines the file type by file name.
 func determineFileType(filePath string) string {
 	switch ext := strings.ToLower(filepath.Ext(filePath)); ext {
+	case ".xlsx":
+		return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 	case ".tex":
 		return "text/x-tex"
 	case ".latex":

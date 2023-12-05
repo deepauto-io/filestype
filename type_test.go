@@ -39,9 +39,9 @@ func TestGetGizmoUploadFileType(t *testing.T) {
 }
 
 func TestGetGizmoUploadExcel(t *testing.T) {
-	body, err := os.ReadFile("/Users/taoshumin_vendor/go/src/github.com/filestype/财务分析1.xls")
+	body, err := os.ReadFile("/Users/taoshumin_vendor/go/src/github.com/filestype/客户资料统计表.xlsx")
 	assert.NoError(t, err)
 
-	ty := GetGizmoUploadFileType("1 (2).xlsx", body)
+	ty := GetGizmoUploadFileType("折旧费用分布统计表.xlsx", body)
 	t.Log(ty)
 }
