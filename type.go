@@ -25,6 +25,8 @@ import (
 )
 
 const (
+	// AceUpload is the ace upload status. [ace_upload]
+	AceUpload = "ace_upload"
 	// MyFiles is the files' status. [my_files] replace ace_upload
 	MyFiles = "my_files"
 	// Multimodal is the multimodal status. [multimodal]
@@ -67,7 +69,7 @@ const (
 // UploadUseCase is the upload use case.
 // multimodal is the GPT-4 multimodal.
 func UploadUseCase(str string) string {
-	list := []string{MyFiles, Multimodal, Gizmo}
+	list := []string{MyFiles, AceUpload, Multimodal, Gizmo}
 	for _, s := range list {
 		if s == str {
 			return str
