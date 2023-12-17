@@ -135,7 +135,7 @@ func GetGizmoUploadFileType(filename string, data []byte) UploadFileType {
 	default:
 		ft := GizmoDetectFileType(filename, data)
 		if ft == "" {
-			return Unknown
+			return File
 		}
 		return File
 	}

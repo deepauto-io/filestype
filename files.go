@@ -296,7 +296,7 @@ func DetectFileType(filename string, data []byte) string {
 				return mmType
 			}
 		}
-		panic("unknown file type")
+		return ""
 	}
 }
 
