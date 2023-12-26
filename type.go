@@ -54,6 +54,10 @@ const (
 	GPT4MagicCreate OpenAIModelType = "gpt-4-magic-create"
 )
 
+func (o OpenAIModelType) String() string {
+	return string(o)
+}
+
 // UploadFileType is use gizmo upload file type.
 type UploadFileType string
 
