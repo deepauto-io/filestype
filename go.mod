@@ -3,8 +3,10 @@ module github.com/deepauto-io/filestype
 go 1.20
 
 require (
+	github.com/disintegration/imaging v1.6.2
 	github.com/gabriel-vasile/mimetype v1.4.3
 	github.com/stretchr/testify v1.8.4
+	golang.org/x/image v0.15.0
 )
 
 require (

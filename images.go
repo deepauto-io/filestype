@@ -16,7 +16,17 @@ limitations under the License.
 
 package filestype
 
-import "github.com/gabriel-vasile/mimetype"
+import (
+	"bytes"
+	"github.com/gabriel-vasile/mimetype"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
+
+	"github.com/disintegration/imaging"
+	"golang.org/x/image/webp"
+)
 
 // DetectImageType returns the image type of the data
 func DetectImageType(data []byte) string {
@@ -63,4 +73,43 @@ func GetDetectImageType(data []byte) string {
 	default:
 		return ""
 	}
+}
+
+// IsValidImage checks if the given image bytes can be decoded into a valid image.
+func IsValidImage(imgBytes []byte) bool {
+	_, _, err := image.Decode(bytes.NewReader(imgBytes))
+	if err == nil {
+		return true
+	}
+
+	_, err = webp.Decode(bytes.NewReader(imgBytes))
+	if err == nil {
+		return true
+	}
+
+	_, err = imaging.Decode(bytes.NewReader(imgBytes))
+	if err == nil {
+		return true
+	}
+	return false
+}
+
+// ImageSize represents the dimensions of an image
+type ImageSize struct {
+	Width  int
+	Height int
+}
+
+// GetImageDimensions returns the dimensions of the image
+func GetImageDimensions(data []byte) (size *ImageSize, err error) {
+	img, _, err := image.Decode(bytes.NewReader(data))
+	if err != nil {
+		return nil, err
+	}
+
+	bounds := img.Bounds()
+	return &ImageSize{
+		Width:  bounds.Dx(),
+		Height: bounds.Dy(),
+	}, nil
 }
